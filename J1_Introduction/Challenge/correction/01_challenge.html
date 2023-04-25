@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        render() {
+          return (
+            <div>
+              <Counter step={1} />
+              <Counter step={2} />
+            </div>
+          );
+        }
+      }
+
+      class Counter extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        render() {
+          return (
+            <div style={{ padding: 10, width: 230 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <button onClick={() => console.log("yes")}>Start (+1)</button>
+                <button>Stop</button>
+                <button>reset</button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                  marginTop: 20,
+                  fontSize: 20,
+                  fontWeight: "medium",
+                  fontFamily: "sans-serif",
+                }}
+              >
+                14
+              </div>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+
+    <style>
+      button {
+        color: white;
+        background-color: rgb(15, 128, 215);
+        border: none;
+        height: 30px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: rgb(5, 109, 188);
+      }
+    </style>
+  </body>
+</html>

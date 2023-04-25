@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class App extends React.Component {
+        render() {
+          return (
+            <div>
+              <Counter />
+              <Counter />
+              <Counter />
+            </div>
+          );
+        }
+      }
+
+      class Counter extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            value: 7,
+          };
+
+          // this.increment = this.increment.bind(this);
+        }
+
+        increment = () => {
+          this.setState({ value: this.state.value + 1 });
+        };
+
+        render() {
+          return (
+            <div style={{ padding: 15 }}>
+              <div>Counter: {this.state.value}</div>
+              <button style={{ marginTop: 10 }} onClick={this.increment}>
+                increment
+              </button>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>

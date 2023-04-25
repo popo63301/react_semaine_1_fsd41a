@@ -1,12 +1,5 @@
-// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const numbers = [1, 2];
+const el = React.createElement("h1", { className: "main" }, "Hello, world!");
 
-// const sum = numbers.reduce((acc, curr) => acc + curr, 7);
-const sum = numbers.reduce((acc, curr) => {
-  console.log("acc", acc);
-  console.log("curr", curr);
-  console.log("-----------");
-  return acc + curr;
-}, 7);
+const el1 = <h1 className="main">Hello, world!</h1>;
 
-console.log(sum);
+// JSX
