@@ -13,49 +13,37 @@
     <div id="root"></div>
 
     <script type="text/babel">
+      const initialState = { count: 0 };
+
+      // const action =  {type: "incr"}
+
+      const reducer = (state, action) => {
+        switch (action.type) {
+          case "incr":
+            return { count: state.count + 1 };
+          case "decr":
+            return { count: state.count - 1 };
+          case "reset":
+            return initialState;
+          default:
+            return state;
+        }
+      };
+
       function App(props) {
-        const [count, setCount] = React.useState(10);
-        const [showFruits, setShowFruits] = React.useState(true);
+        const [state, dispatch] = React.useReducer(reducer, initialState);
 
-        React.useEffect(() => {
-          console.log("all updates");
-        }); // 1ère apparition + toute les modifications
-
-        React.useEffect(() => {
-          console.log("apparition");
-        }, []); // 1ère apparition seulement
-
-        React.useEffect(() => {
-          console.log("update", count);
-        }, [count]); // 1ère apparitiong + toute les modifications de count
-
+        console.log("state", state);
         return (
-          <div>
-            <p>{count}</p>
-            <button onClick={() => setCount(count + 1)}>increment</button>
+          <React.Fragment>
+            Counter : {state.count}
+            <button onClick={() => dispatch({ type: "decr" })}>-</button>
+            <button onClick={() => dispatch({ type: "incr" })}>+</button>
             <div>
-              <button
-                style={{ marginTop: 50, marginBottom: 50 }}
-                onClick={() => setShowFruits(!showFruits)}
-              >
-                toggle fruits
-              </button>
-              {showFruits && <CacheCache />}
+              <button onClick={() => dispatch({ type: "reset" })}>reset</button>
             </div>
-          </div>
+          </React.Fragment>
         );
-      }
-
-      function CacheCache(props) {
-        React.useEffect(() => {
-          console.log("apparition");
-
-          return () => {
-            console.log("disparition");
-          };
-        }, []); // 1ère apparition + disparition
-
-        return <div>🍇🍓🫐🫒🍒</div>;
       }
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
