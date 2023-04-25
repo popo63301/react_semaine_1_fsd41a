@@ -44,15 +44,18 @@
         }
 
         render() {
-          if (this.state.started && this.state.counterValue < 20) {
+          const { started, disabled, counterValue } = this.state;
+          const { step } = this.props;
+
+          if (started && counterValue < 20) {
             setTimeout(() => {
-              if (this.state.started) {
+              if (started) {
                 this.setState({
-                  counterValue: this.state.counterValue + this.props.step,
+                  counterValue: counterValue + step,
                 });
               }
             }, 1000);
-          } else if (this.state.started) {
+          } else if (started) {
             this.setState({ started: false, disabled: true });
           }
 
@@ -68,9 +71,9 @@
                   onClick={() =>
                     this.setState({ started: true, disabled: false })
                   }
-                  disabled={!this.state.disabled}
+                  disabled={!disabled}
                 >
-                  Start (+{this.props.step})
+                  Start (+{step})
                 </button>
                 <button
                   onClick={() =>
@@ -79,7 +82,7 @@
                       disabled: true,
                     })
                   }
-                  disabled={this.state.disabled}
+                  disabled={disabled}
                 >
                   Stop
                 </button>
@@ -97,7 +100,7 @@
                   fontFamily: "sans-serif",
                 }}
               >
-                {this.state.counterValue} // {dec2bin(this.state.counterValue)}
+                {counterValue} // {dec2bin(counterValue)}
               </div>
             </div>
           );
