@@ -13,6 +13,10 @@
     <div id="root"></div>
 
     <script type="text/babel">
+      function dec2bin(dec) {
+        return (dec >>> 0).toString(2);
+      }
+
       class App extends React.Component {
         constructor(props) {
           super(props);
@@ -31,9 +35,27 @@
       class Counter extends React.Component {
         constructor(props) {
           super(props);
+
+          this.state = {
+            started: false,
+            disabled: true,
+            counterValue: 0,
+          };
         }
 
         render() {
+          if (this.state.started && this.state.counterValue < 20) {
+            setTimeout(() => {
+              if (this.state.started) {
+                this.setState({
+                  counterValue: this.state.counterValue + this.props.step,
+                });
+              }
+            }, 1000);
+          } else if (this.state.started) {
+            this.setState({ started: false, disabled: true });
+          }
+
           return (
             <div style={{ padding: 10, width: 230 }}>
               <div
@@ -42,9 +64,28 @@
                   justifyContent: "space-between",
                 }}
               >
-                <button onClick={() => console.log("yes")}>Start (+1)</button>
-                <button>Stop</button>
-                <button>reset</button>
+                <button
+                  onClick={() =>
+                    this.setState({ started: true, disabled: false })
+                  }
+                  disabled={!this.state.disabled}
+                >
+                  Start (+{this.props.step})
+                </button>
+                <button
+                  onClick={() =>
+                    this.setState({
+                      started: false,
+                      disabled: true,
+                    })
+                  }
+                  disabled={this.state.disabled}
+                >
+                  Stop
+                </button>
+                <button onClick={() => this.setState({ counterValue: 0 })}>
+                  reset
+                </button>
               </div>
               <div
                 style={{
@@ -56,7 +97,7 @@
                   fontFamily: "sans-serif",
                 }}
               >
-                14
+                {this.state.counterValue} // {dec2bin(this.state.counterValue)}
               </div>
             </div>
           );
@@ -78,6 +119,11 @@
 
       button:hover {
         background-color: rgb(5, 109, 188);
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        background-color: rgb(229, 229, 229) !important;
       }
     </style>
   </body>
