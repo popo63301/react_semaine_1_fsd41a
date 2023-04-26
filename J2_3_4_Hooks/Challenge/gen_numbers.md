@@ -19,4 +19,4 @@ let numbers = generate();
 
 Une fois la liste de nombres affichée, ordonnez-la en affichant les valeurs toutes les secondes sous la première liste (non-ordonnées).
 
-![liste_ordonnees](images/liste_ordonnees.png)
+![liste_ordonnees](../images/liste_ordonnees.png)
