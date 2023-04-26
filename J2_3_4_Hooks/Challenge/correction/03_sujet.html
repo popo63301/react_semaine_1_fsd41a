@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function App(props) {
+        const [number1, setNumber1] = React.useState("");
+        const [number2, setNumber2] = React.useState("");
+        const [result, setResult] = React.useState(null);
+        const [errorMessage, setErrorMessage] = React.useState("");
+        const [operationCount, setOperationCount] = React.useState(0);
+        const [showSuccessMessage, setShowSuccessMessage] =
+          React.useState(false);
+
+        React.useEffect(() => {
+          if (result) {
+            setOperationCount(operationCount + 1);
+          }
+        }, [result]);
+
+        // approche 2
+        React.useEffect(() => {
+          if (operationCount === 10) {
+            setShowSuccessMessage(true);
+          }
+        }, [operationCount]);
+
+        const operation = (opp) => {
+          if (isNaN(Number(number1)) || isNaN(Number(number2))) {
+            return setErrorMessage("Erreur / vous avez tapé un mauvais nombre");
+          }
+          setResult(opp(Number(number1), Number(number2)));
+          setErrorMessage("");
+        };
+
+        const add = () => operation((a, b) => a + b);
+        const multiply = () => operation((a, b) => a * b);
+
+        // const add = () => {
+        //   if (isNaN(Number(number1)) || isNaN(Number(number2))) {
+        //     return setErrorMessage("Erreur / vous avez tapé un mauvais nombre");
+        //   }
+        //   setResult(Number(number1) + Number(number2));
+        //   setErrorMessage("");
+        // };
+
+        // const multiply = () => {
+        //   if (isNaN(Number(number1)) || isNaN(Number(number2))) {
+        //     return setErrorMessage("Erreur / vous avez tapé un mauvais nombre");
+        //   }
+        //   setResult(Number(number1) * Number(number2));
+        //   setErrorMessage("");
+        // };
+
+        const reset = () => {
+          setNumber1("");
+          setNumber2("");
+          setResult(null);
+          setErrorMessage("");
+        };
+
+        return (
+          <div style={{ padding: 30 }}>
+            Résultat: {result} -- total opération = {operationCount}
+            <div style={{ padding: "30px 0px" }}>
+              Num1 :{" "}
+              <input
+                type="text"
+                name="number1"
+                value={number1}
+                onChange={(e) => setNumber1(e.target.value)}
+              />{" "}
+              ------ Num2 :{" "}
+              <input
+                type="text"
+                name="number2"
+                value={number2}
+                onChange={(e) => setNumber2(e.target.value)}
+              />
+            </div>
+            <div style={{ color: "red" }}>{errorMessage}</div>
+            {/* approche 1
+                {operationCount >= 10 && (
+                    <div style={{ color: "green" }}>
+                        Vous avez passé la barre des 10 opérations
+                        </div>
+                        )}
+                    */}
+            {showSuccessMessage && (
+              <div style={{ color: "green" }}>
+                Vous avez passé la barre des 10 opérations
+              </div>
+            )}
+            <div style={{ padding: "30px 0px" }}>
+              <button onClick={add}>additionner</button>
+              <button onClick={multiply} style={{ marginLeft: 20 }}>
+                multiplier
+              </button>
+              <button onClick={reset} style={{ marginLeft: 20 }}>
+                reset
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
