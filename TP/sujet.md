@@ -19,20 +19,19 @@ contacts = [
 ];
 ```
 
-=> 1 formulaire d'ajout de contact
-=> 1 boutton pour supprimer un contact
-=> mettre en forme
+- 1 formulaire d'ajout de contact
+- 1 boutton pour supprimer un contact
+- mettre en forme
 
 bonus =
-=> modification du nom du contact
+
+- modification du nom du contact
 
 /!\
+
 pour avoir un id unique : utiliser un timestamp
 
 let now = new Date();
 let timestamp = now.getTime();
+
 /!\
-
-```
-
-```
