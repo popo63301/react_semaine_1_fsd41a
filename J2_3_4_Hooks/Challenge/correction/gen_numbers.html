@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const generateArrayNumber = () =>
+        Array.from({ length: 20 }, (_, i) => i + 1).sort(
+          (a, b) => 0.5 - Math.random()
+        );
+
+      function App(props) {
+        const [list, setList] = React.useState(generateArrayNumber());
+
+        console.log("list", list);
+        return (
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            {list.map((e, i) => (
+              <span key={i} style={{ padding: "0 10px" }}>
+                {e}
+              </span>
+            ))}
+            <div style={{ paddingTop: 30 }}>
+              {list
+                .sort((a, b) => a - b)
+                .map((e, i) => (
+                  <HiddenNumber value={e} />
+                ))}
+            </div>
+          </div>
+        );
+
+        function HiddenNumber(props) {
+          const [visible, setVisible] = React.useState(false);
+
+          React.useEffect(() => {
+            setTimeout(() => setVisible(true), props.value * 1000);
+          }, []);
+
+          return (
+            <span
+              key={props.value}
+              style={{
+                padding: "0 10px",
+                visibility: visible ? "visible" : "hidden",
+              }}
+            >
+              {props.value}
+            </span>
+          );
+        }
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
