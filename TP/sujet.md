@@ -1,20 +1,22 @@
 # TP = liste de contact
 
-````js
+Datas initial
+
+```js
 contacts = [
-{
+  {
     id: 1,
     firstname: "Gandalf",
     lastname: "Legris",
-    email: "gandalf@laconte.lotr"
-},
-{
+    email: "gandalf@laconte.lotr",
+  },
+  {
     id: 2,
     firstname: "Sarumane",
     lastname: "Leblanc",
-    email: "sarumane@laconte.lotr"
-}
-]
+    email: "sarumane@laconte.lotr",
+  },
+];
 ```
 
 => 1 formulaire d'ajout de contact
@@ -30,4 +32,7 @@ pour avoir un id unique : utiliser un timestamp
 let now = new Date();
 let timestamp = now.getTime();
 /!\
-````
+
+```
+
+```
