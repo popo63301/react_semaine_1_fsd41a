@@ -19,6 +19,7 @@ contacts = [
 ];
 ```
 
+- utiliser Create React App ou Vite
 - 1 formulaire d'ajout de contact
 - 1 boutton pour supprimer un contact
 - mettre en forme
